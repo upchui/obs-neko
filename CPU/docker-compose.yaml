@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  neko:
+    build: .
+    shm_size: "2gb"
+    network_mode: host
+    environment:
+      NEKO_SCREEN: 1920x1080@30
+      NEKO_PASSWORD: neko
+      NEKO_PASSWORD_ADMIN: admin
+      NEKO_EPR: 52000-52100
+      NEKO_ICELITE: 1
+      NEKO_NAT1TO1: 10.13.0.19
+    restart: unless-stopped
+    volumes:
+      - ./obs-config:/home/neko/.config/obs-studio # Volume für OBS Studio Einstellungen
+      #- obs-data:/home/neko/.local/share/obs-studio # Speichern von Medien & Aufnahmen
+    devices:
+      - "/dev/dri:/dev/dri"
